@@ -1,8 +1,9 @@
+const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
-ctx.lineWidth = 2;
+ctx.lineWidth = lineWidth.value;
 
 // Mouse Painting
 let isPainting = false;
@@ -14,17 +15,25 @@ function onMove(event) {
     }
     ctx.moveTo(event.offsetX, event.offsetY);
 }
-function onMoveDown(event) {
+function startPainting(event) {
     isPainting = true;
 }
-function onMoveUp(event) {
+function cancelPainting(event) {
     isPainting = false;
+    ctx.beginPath();
 }
 
 canvas.addEventListener("mousemove", onMove);
-canvas.addEventListener("mousedown", onMoveDown);
-canvas.addEventListener("mouseup", onMoveUp);
-canvas.addEventListener("mouseleave", onMoveUp);
+canvas.addEventListener("mousedown", startPainting);
+canvas.addEventListener("mouseup", cancelPainting);
+canvas.addEventListener("mouseleave", cancelPainting);
+
+// Line Width
+function onLineWidthChange(event) {
+    ctx.lineWidth = event.target.value;
+}
+
+lineWidth.addEventListener("change", onLineWidthChange);
 
 // Painting Lines
 // const colors = [
