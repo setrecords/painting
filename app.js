@@ -1,3 +1,4 @@
+const modeBtn = document.getElementById("mode-btn");
 const colorOptions = Array.from(document.getElementsByClassName("color-option"));
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
@@ -51,6 +52,26 @@ function onColorChange(event) {
 color.addEventListener("change", onColorChange);
 
 colorOptions.forEach(color => color.addEventListener("click", onColorClick));
+
+// Filling Mode
+let isFilling = false;
+function onModeClick() {
+    if(isFilling) {
+        isFilling = false;
+        modeBtn.innerText = "Fill"
+    } else {
+        isFilling = true;
+        modeBtn.innerText = "Draw"
+    }
+}
+
+function onCanvasClick() {
+    if(isFilling) {
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+}
+modeBtn.addEventListener("click", onModeClick);
+canvas.addEventListener("click", onCanvasClick);
 
 // Painting Lines
 // const colors = [
