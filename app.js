@@ -1,3 +1,4 @@
+const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
 const eraserBtn = document.getElementById("eraser-btn");
 const destroyBtn = document.getElementById("destroy-btn");
@@ -12,6 +13,7 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 
 // Mouse Painting
 let isPainting = false;
@@ -108,6 +110,19 @@ function onFileChange(event) {
 
 fileInput.addEventListener("change", onFileChange);
 
+// Adding Text
+function onDoubleClick(event) {
+    const text = textInput.value;
+    if(text !== "") {
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.font = "48px serif"
+        ctx.fillText(text, event.offsetX, event.offsetY);
+        ctx.restore();
+    }
+}
+
+canvas.addEventListener("dblclick", onDoubleClick);
 
 // Painting Lines
 // const colors = [
