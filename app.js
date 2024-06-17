@@ -1,3 +1,4 @@
+const saveBtn = document.getElementById("save");
 const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
 const eraserBtn = document.getElementById("eraser-btn");
@@ -123,6 +124,16 @@ function onDoubleClick(event) {
 }
 
 canvas.addEventListener("dblclick", onDoubleClick);
+
+// Saving Image
+function onSaveClick() {
+    const url = canvas.toDataURL();
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "myDrawing.png"
+    a.click();
+}
+saveBtn.addEventListener("click", onSaveClick);
 
 // Painting Lines
 // const colors = [
